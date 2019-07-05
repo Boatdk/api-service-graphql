@@ -23,8 +23,9 @@ $ npm run dev
 ```
 
 ## Features
+Type this in your graphql
 Query data from database using
-```json
+```js
 query{
   games{
     data{
@@ -47,7 +48,7 @@ query{
 }
 ```
 Mutation data into database using
-```json
+```js
 mutation{
   createGame(
     input:{
