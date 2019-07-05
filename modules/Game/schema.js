@@ -32,7 +32,7 @@ const typeDefinitions = `
   # แสดงผลลัพท์ของ Game
   type GamesPayload {
     meta: Meta
-    data: [Game] # "[]" คือ list ของทีม
+    data: [Game]
     errors: [Error]
   }
   
