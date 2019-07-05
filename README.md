@@ -23,7 +23,7 @@ $ npm run dev
 ```
 
 ## Features
-Type this in your graphql
+#### Type this in your graphql
 Query data from database using
 ```js
 query{
