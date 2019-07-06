@@ -53,11 +53,11 @@ mutation{
   createGame(
     input:{
       game:{
-        title: "Ragnarok xx Online Mobile Ethernal Lovesx55111",
-      	shortname: "ROM",
-        description: "Good game to play",
-        link: "www.rom.in.th",
-        picture_path: "sa13swqe13Weqs12"
+        title: "...",
+      	shortname: "...",
+        description: "...",
+        link: "...",
+        picture_path: "..."
       }
     }
   ) {
