@@ -77,7 +77,6 @@ const createGameService = ({
   }, {
     'shortname': game.shortname
   }).then((gameExisted) => {
-    console.log(gameExisted)
     if (gameExisted) {
       if (gameExisted.title == game.title) {
         const err = {
@@ -120,6 +119,21 @@ const createGameService = ({
       })
     }
   })
+
+}
+
+const gameUpdateService = ({
+  input = {}
+}, callback) => {
+  const game = new Game({
+    _id: input.game._id,
+    title: input.game.title,
+    shortname: input.game.shortname,
+    description: input.game.description,
+    link: input.game.link,
+    picture_path: input.game.picture_path
+  })
+  Game.update()
 
 }
 

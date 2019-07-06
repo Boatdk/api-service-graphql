@@ -9,6 +9,7 @@ const query = `
 
 const mutation = `
   createGame(input: CreateGameInput!): GamesPayload
+  updateGame(input: UpdateGameInput!): GamesPayload
 `
 
 const typeDefinitions = `
@@ -19,6 +20,10 @@ const typeDefinitions = `
   }
 
   input CreateGameInput {
+    game: GameData
+  }
+
+  input UpdateGameInput {
     game: GameData
   }
 
