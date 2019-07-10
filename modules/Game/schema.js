@@ -1,15 +1,20 @@
 import {
   getGameService,
   createGameService,
+  updateGameService,
+  findGameById,
+  deleteGameService
 } from './services'
 
 const query = `
   games(input: SearchGameInput): GamesPayload
+  findGame(input: FindGameByIdInput): GamesPayload
 `
 
 const mutation = `
   createGame(input: CreateGameInput!): GamesPayload
-  updateGame(input: UpdateGameInput!): GamesPayload
+  updateGame(input: UpdateGameInput!): GamesPayload 
+  deleteGame(input: DeleteGameInput!): GamesPayload
 `
 
 const typeDefinitions = `
@@ -19,12 +24,21 @@ const typeDefinitions = `
     current_page: Int
   }
 
+  input FindGameByIdInput {
+    _id: ID
+  }
+
   input CreateGameInput {
     game: GameData
   }
 
   input UpdateGameInput {
+    _id: ID
     game: GameData
+  }
+
+  input DeleteGameInput {
+    _id: ID
   }
 
   input GameData {
@@ -76,11 +90,32 @@ const resolvers = {
         })
       })
     },
+    findGame(root, args) {
+      return new Promise((resolve, reject) => {
+        findGameById(args, (data) => {
+          resolve(data)
+        })
+      })
+    },
   },
   Mutation: {
     createGame(root, args) {
       return new Promise((resolve, reject) => {
         createGameService(args, (data) => {
+          resolve(data)
+        })
+      })
+    },
+    updateGame(root, args, params) {
+      return new Promise((resolve, reject) => {
+        updateGameService(args, (data) => {
+          resolve(data)
+        })
+      })
+    },
+    deleteGame(root, args) {
+      return new Promise((resolve, reject) => {
+        deleteGameService(args, (data) => {
           resolve(data)
         })
       })

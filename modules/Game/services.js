@@ -8,7 +8,7 @@ const getGameService = ({
   const currentPage = (input.current_page > 0 ? input.current_page : 1)
   const gameModel = Game.where('title')
   const countGameModel = Game.where('title')
-  console.log(gameModel)
+
 
   if (input.keyword && input.keyword !== '') {
     const words = input.keyword.split(' ')
@@ -122,22 +122,91 @@ const createGameService = ({
 
 }
 
-const gameUpdateService = ({
+const updateGameService = ({
   input = {}
 }, callback) => {
-  const game = new Game({
-    _id: input.game._id,
+  const game = {
     title: input.game.title,
     shortname: input.game.shortname,
     description: input.game.description,
     link: input.game.link,
     picture_path: input.game.picture_path
+  }
+  Game.updateOne({
+    '_id': input._id
+  }, {
+    $set: game
+  }).then(resultUpdate => {
+    if (resultUpdate) {
+      Game.findById({
+        '_id': input._id
+      }).then(dataResult => {
+        const result = {
+          meta: {
+            status: 200,
+            message: 'Update successfully'
+          },
+          data: [dataResult],
+          errors: []
+        }
+        callback(result)
+      })
+    } else {
+      const err = {
+        errors: {
+          message: 'can not update'
+        }
+      }
+      callback(err)
+    }
   })
-  Game.update()
 
+}
+
+const findGameById = ({
+  input = {}
+}, callback) => {
+  Game.findById({
+    '_id': input._id
+  }).then(findResult => {
+    const result = {
+      meta: {
+        status: 200,
+        message: 'Can get by Id'
+      },
+      data: [findResult],
+      errors: []
+    }
+    callback(result)
+    console.log(result)
+  })
+}
+
+const deleteGameService = ({
+  input = {}
+}, callback) => {
+  console.log(input._id)
+  Game.remove({
+    '_id': input._id
+  }).then(resultDelete => {
+    if (resultDelete) {
+      const result = {
+        meta: {
+          status: 200,
+          message: 'delete successfully'
+        },
+        errors: []
+      }
+      callback(result)
+    } else
+        console.log("GGWP")
+  })
 }
 
 export {
   getGameService,
   createGameService,
+  updateGameService,
+  findGameById,
+  deleteGameService
 }
