@@ -82,7 +82,7 @@ const createGameService = ({
         const err = {
           errors: [{
             code: 203,
-            message: 'This Game is on this website'
+            message: 'This Game is already on this website'
           }]
         }
         callback(err)
@@ -125,13 +125,51 @@ const createGameService = ({
 const updateGameService = ({
   input = {}
 }, callback) => {
-  const game = {
-    title: input.game.title,
-    shortname: input.game.shortname,
-    description: input.game.description,
-    link: input.game.link,
-    picture_path: input.game.picture_path
+  var game
+  var title = input.game.title
+  var shortname = input.game.shortname
+  var description = input.game.description
+  var link = input.game.link
+  var picture_path = input.game.picture_path
+
+  if (shortname == undefined && title == undefined && description == undefined && link == undefined && picture_path == undefined) {
+    const err = {
+      errors: [{
+        message: 'Need field to update'
+      }]
+    }
+    callback(err)
+  } else if (shortname == undefined && description == undefined && link == undefined && picture_path == undefined) {
+    game = {
+      title: title,
+    }
+
+  } else if (title == undefined && description == undefined && link == undefined && picture_path == undefined) {
+    game = {
+      shortname: shortname
+    }
+  } else if (shortname == undefined && title == undefined && link == undefined && picture_path == undefined) {
+    game = {
+      description: description
+    }
+  } else if (shortname == undefined && description == undefined && title == undefined && picture_path == undefined) {
+    game = {
+      link: link
+    }
+  } else if (shortname == undefined && description == undefined && link == undefined && title == undefined) {
+    game = {
+      picture_path: picture_path
+    }
+  } else {
+    game = {
+      title: title,
+      shortname: shortname,
+      description: description,
+      link: link,
+      picture_path: picture_path
+    }
   }
+
   Game.updateOne({
     '_id': input._id
   }, {
@@ -159,6 +197,8 @@ const updateGameService = ({
       }
       callback(err)
     }
+  }).catch(err => {
+    throw err
   })
 
 }
@@ -199,7 +239,7 @@ const deleteGameService = ({
       }
       callback(result)
     } else
-        console.log("GGWP")
+      console.log("GGWP")
   })
 }
 

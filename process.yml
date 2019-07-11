@@ -1,0 +1,5 @@
+apps:
+ - script: app.js
+   name: graphql-mongodb
+   env: 
+       NODE_ENV: production

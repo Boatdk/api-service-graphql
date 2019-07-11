@@ -6,17 +6,23 @@ import {
   typeDefinitions as gameTypes,
   mutation as gameMutation,
 } from './Game/schema'
+import {
+  query as cardQuery,
+  resolvers as cardResolves,
+  typeDefinitions as cardTypes,
+  mutation as cardMutation
+} from './Card/schema'
 
 const moduleQueries = [
-  gameQuery,
+  gameQuery, cardQuery
 ]
 
 const moduleTypeDefinitions = [
-  gameTypes,
+  gameTypes, cardTypes
 ]
 
 const moduleMutations = [
-  gameMutation,
+  gameMutation, cardMutation
 ]
 
 const schema = `
@@ -36,7 +42,7 @@ const schema = `
   }
 `
 
-const resolvers = merge(gameResolvers)
+const resolvers = merge(gameResolvers, cardResolves)
 const executableSchema = makeExecutableSchema({
   typeDefs: [schema],
   resolvers,
