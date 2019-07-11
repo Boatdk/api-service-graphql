@@ -2,7 +2,8 @@ import {
   createCardService,
   updateCardService,
   findCardById,
-  getCardService
+  getCardService,
+  deleteCardService
 } from './services'
 
 
@@ -13,6 +14,7 @@ const query = `
 const mutation = `
   createCard(input: CreateCardInput!): CardsPayload
   updateCard(input: UpdateCardInput!): CardsPayload
+  deleteCard(input: DeleteCardInput!): CardsPayload
 `
 
 const typeDefinitions = `
@@ -32,6 +34,10 @@ const typeDefinitions = `
   }
 
   input FindCardByIdInput {
+    _id: ID
+  }
+
+  input DeleteCardInput {
     _id: ID
   }
 
@@ -87,6 +93,13 @@ const resolvers = {
     updateCard(root, args) {
       return new Promise((resolve, reject) => {
         updateCardService(args, (data) => {
+          resolve(data)
+        })
+      })
+    },
+    deleteCard(root, args) {
+      return new Promise((resolve, reject) => {
+        deleteCardService(args, (data) => {
           resolve(data)
         })
       })

@@ -194,11 +194,28 @@ const findCardById = ({
   })
 }
 
+const deleteCardService = ({ input = {} }, callback) => {
+    Card.remove({ '_id': input._id }).then(resultDelete => {
+      if(resultDelete){
+        const result = {
+          meta: {
+            status: 200,
+            message: 'Delete successfully'
+          },
+          errors: []
+        }
+        callback(result)
+      }else {
+        console.log("GGWP")
+      }
+    })
+}
 
 
 export {
   getCardService,
   createCardService,
   findCardById,
-  updateCardService
+  updateCardService,
+  deleteCardService
 }

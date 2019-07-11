@@ -192,7 +192,7 @@ const updateGameService = ({
     } else {
       const err = {
         errors: {
-          message: 'can not update'
+          message: 'Can not update'
         }
       }
       callback(err)
@@ -225,7 +225,6 @@ const findGameById = ({
 const deleteGameService = ({
   input = {}
 }, callback) => {
-  console.log(input._id)
   Game.remove({
     '_id': input._id
   }).then(resultDelete => {
@@ -233,13 +232,13 @@ const deleteGameService = ({
       const result = {
         meta: {
           status: 200,
-          message: 'delete successfully'
+          message: 'Delete successfully'
         },
         errors: []
       }
       callback(result)
     } else
-      console.log("GGWP")
+        console.log("GGWP")
   })
 }
 
