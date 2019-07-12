@@ -12,17 +12,23 @@ import {
   typeDefinitions as cardTypes,
   mutation as cardMutation
 } from './Card/schema'
+import {
+  query as serialQuery,
+  resolvers as serialResolvers,
+  typeDefinitions as serialTypes,
+  mutation as serialMutation
+} from './Card_Serial/schema'
 
 const moduleQueries = [
-  gameQuery, cardQuery
+  gameQuery, cardQuery, serialQuery
 ]
 
 const moduleTypeDefinitions = [
-  gameTypes, cardTypes
+  gameTypes, cardTypes, serialTypes
 ]
 
 const moduleMutations = [
-  gameMutation, cardMutation
+  gameMutation, cardMutation, serialMutation
 ]
 
 const schema = `
@@ -42,7 +48,7 @@ const schema = `
   }
 `
 
-const resolvers = merge(gameResolvers, cardResolves)
+const resolvers = merge(gameResolvers, cardResolves, serialResolvers)
 const executableSchema = makeExecutableSchema({
   typeDefs: [schema],
   resolvers,

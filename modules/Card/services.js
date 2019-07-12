@@ -69,7 +69,7 @@ const createCardService = ({
     price: input.card.price
   })
   Card.findOne({
-    'title': card.title
+    'name': card.name
   }).then((cardExisted) => {
     if (cardExisted) {
       const err = {
@@ -147,7 +147,7 @@ const updateCardService = ({
       }).then(dataResult => {
         const result = {
           meta: {
-            status: 200,
+            status: 201,
             message: 'Update successfully'
           },
           data: [dataResult],
@@ -158,7 +158,7 @@ const updateCardService = ({
     } else {
       const err = {
         errors: [{
-          message: 'can not update'
+          message: 'Can not update'
         }]
       }
       callback(err)

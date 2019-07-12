@@ -8,6 +8,7 @@ const app = express()
 
 app.get('/', (req, res) => {
     res.send("You can user this server API")
+    
 })
 
 app.use('/graphql', bodyParser.json(), graphqlExpress(req => ({ schema })))
