@@ -116,23 +116,25 @@ const createSerialService = ({
   })
 }
 
-const updateSerialService = ({ input = {}}, callback) => {
-  var serial_data 
+const updateSerialService = ({
+  input = {}
+}, callback) => {
+  var serial_data
   var serial = input.serial.serial
   var pin = input.serial.pin
   var price = input.serial.price
 
-  if(serial == undefined && pin == undefined && price == undefined){
+  if (serial == undefined && pin == undefined && price == undefined) {
     console.log("bad input")
-  }else if(pin == undefined && price == undefined){
+  } else if (pin == undefined && price == undefined) {
     serial_data = {
       serial: serial
     }
-  } else if(serial == undefined && price == undefined){
+  } else if (serial == undefined && price == undefined) {
     serial_data = {
       pin: pin
     }
-  } else if(serial == undefined && pin == undefined){
+  } else if (serial == undefined && pin == undefined) {
     serial_data = {
       price: price
     }
@@ -143,9 +145,13 @@ const updateSerialService = ({ input = {}}, callback) => {
       price: price
     }
   }
-  
-  Card_serial.updateOne({'_id': input._id}, {$set: serial_data}).then(updateResult => {
-    if(updateResult){
+
+  Card_serial.updateOne({
+    '_id': input._id
+  }, {
+    $set: serial_data
+  }).then(updateResult => {
+    if (updateResult) {
       Card_serial.findById({
         '_id': input._id
       }).then(dataResult => {
@@ -171,8 +177,30 @@ const updateSerialService = ({ input = {}}, callback) => {
   })
 }
 
+const deleteSerialService = ({
+  input = {}
+}, callback) => {
+  Card_serial.remove({
+    '_id': input._id
+  }).then(deleteResult => {
+    if (deleteResult) {
+      const result = {
+        meta: {
+          status: 201,
+          message: 'Delete successfully'
+        },
+        errors: []
+      }
+      callback(result)
+    } else {
+      console.log("GGWP")
+    }
+  })
+}
+
 export {
   getSerialService,
   createSerialService,
-  updateSerialService
+  updateSerialService,
+  deleteSerialService
 }

@@ -1,7 +1,8 @@
 import {
   getSerialService,
   createSerialService,
-  updateSerialService
+  updateSerialService,
+  deleteSerialService
 } from './services'
 
 const query = `
@@ -10,6 +11,7 @@ const query = `
 const mutation = `
   createSerial(input: CreateSerialInput!): SerialsPayload  
   updateSerial(input: UpdateSerialInput!): SerialsPayload
+  deleteSerial(input: DeleteSerialInput!): SerialsPayload
 `
 
 const typeDefinitions = `
@@ -26,6 +28,10 @@ const typeDefinitions = `
   input UpdateSerialInput {
     _id: ID
     serial: SerialData
+  }
+
+  input DeleteSerialInput {
+    _id: ID
   }
 
   input SerialData {
@@ -71,6 +77,13 @@ const resolvers = {
     updateSerial(root, args) {
       return new Promise((resolve, reject) => {
         updateSerialService(args, (data) => {
+          resolve(data)
+        })
+      })
+    },
+    deleteSerial(root, args) {
+      return new Promise((resolve, reject) => {
+        deleteSerialService(args, (data) => {
           resolve(data)
         })
       })
